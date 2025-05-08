@@ -12,7 +12,7 @@ public class Board {
     int base;
     char[][] boardArray;
     public int[][] allPossibleLocations = new int[10][];
-
+    List<int[]> validMoves = new ArrayList<int[]>();
 
     public Board(int base) throws IOException {
         base = base;
