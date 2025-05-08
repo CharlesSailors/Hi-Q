@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f0ee9b7-95e2-4ac5-969c-ba4c20251db4" name="Changes" comment="First rendition. Need to figure out why 'findStates and 'makeFakeMove' will only work on one state search and will not recursively run." />
+    <list default="true" id="1f0ee9b7-95e2-4ac5-969c-ba4c20251db4" name="Changes" comment="First rendition. Need to figure out why 'findStates and 'makeFakeMove' will only work on one state search and will not recursively run.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +22,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="093fc96b-9824-4fa1-a447-712d2a60e475" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2wnCIIUXV9KiffA9LqnKizAxVoy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -36,6 +41,9 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "C:/Users/cjsho/IdeaProjects/Hi-Q/src/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
@@ -70,7 +78,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746691310322</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="First rendition. Need to figure out why 'findStates and 'makeFakeMove' will only work on one state search and will not recursively run.">
+      <option name="closed" value="true" />
+      <created>1746691452494</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746691452494</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
