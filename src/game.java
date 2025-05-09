@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class game {
 
@@ -18,10 +21,14 @@ public class game {
         // Reading data using readLine
         System.out.println("Please enter width of bottom row:");
         size = 4; //Integer.parseInt(reader.readLine());
-
-        Board gameBoard = new Board(size);
+        boolean firstBoard = true;
+        Board gameBoard = new Board(size, firstBoard);
         System.out.println("here");
-        Bot solver = new Bot(gameBoard);
+        Bot bot = new Bot();
+        List<int[]> moves = new ArrayList<int[]>();
+        List<int[]> winningMoves = bot.recursion(gameBoard, moves);
+        System.out.println(winningMoves);
+        //Bot solver = new Bot(gameBoard);
     }
 
 

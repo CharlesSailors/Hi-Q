@@ -14,12 +14,16 @@ public class Board {
     public int[][] allPossibleLocations = new int[10][];
     List<int[]> validMoves = new ArrayList<int[]>();
 
-    public Board(int base) throws IOException {
+    public Board(int base, boolean first) throws IOException {
         base = base;
         makeBoard(base);
         checkAllIndices();
-        chooseOpening();
-        print2D(boardArray);
+        if (first){
+            chooseOpening();
+            print2D(boardArray);
+        }
+
+        //print2D(boardArray);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
         /*

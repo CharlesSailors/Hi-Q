@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Bot {
     static Board board;
@@ -7,12 +9,12 @@ public class Bot {
     int statesFound;
     int counter = 0;
 
-    public Bot(Board board2) throws IOException {
-        board = board2;
-        allStates = new char[1000][board2.base][];
+    public Bot() throws IOException {
+        //board = board2;
+        //allStates = new char[1000][board2.base][];
 
-        board.checkAllIndices();
-        solveBoard(board);
+        //board.checkAllIndices();
+        //solveBoard(board);
     }
 
     public void solveBoard(Board Board) throws IOException {
@@ -31,8 +33,9 @@ public class Bot {
         int[][] temp = sol.allPossibleLocations;
 
         for (int[] array : temp){
-            for (int[] array2 : temp) {
 
+            for (int[] array2 : temp) {
+                //System.out.println("jgf" +array[0] + array[1] + array2[0] + array2[1]);
                 if (isValidMove(sol, array[0], array[1], array2[0], array2[1])) {
                     int[] temporary = new int[4];
                     temporary[0] = array[0];
@@ -54,7 +57,7 @@ public class Bot {
     }
 
     public Board makeFakeMovePart2(char[][] array, int startRow, int startColumn, int finishRow, int finishColumn) throws IOException {
-        Board fabricated = new Board(array.length);
+        Board fabricated = new Board(array.length, false);
         fabricated.boardArray = array;
 
         fabricated.boardArray[startRow][startColumn] = '-';
@@ -120,7 +123,7 @@ public class Bot {
         }
     }
 
-    public void makeFakeMove(Board fakeBoard1, int startRow, int startColumn, int finishRow, int finishColumn) {
+    public Board makeFakeMove(Board fakeBoard1, int startRow, int startColumn, int finishRow, int finishColumn) {
         Board fakeBoard = fakeBoard1;
         fakeBoard.boardArray[startRow][startColumn] = '-';
         fakeBoard.boardArray[finishRow][finishColumn] = 'o';
@@ -146,6 +149,8 @@ public class Bot {
                 fakeBoard.boardArray[finishRow-1][finishColumn-1] = '-';
             }
         }
+        return fakeBoard;
+        /*
         boolean found = false;
         for (char[][] element : allStates) {
             if (element == fakeBoard.boardArray) {
@@ -161,6 +166,7 @@ public class Bot {
         }
         System.out.println("am i gettiing here");
         findStates(fakeBoard);
+        */
         /*
         if (((Math.abs(startRow-finishRow) == 2) && (Math.abs(startColumn-finishColumn) == 2)) || (((Math.abs(startRow-finishRow) == 0) && (Math.abs(startColumn-finishColumn) == 4)))) {
             if ((fakeBoard.boardArray[startRow][startColumn] == 'o') && (fakeBoard.boardArray[finishRow][finishColumn] == '-')) {
@@ -232,6 +238,77 @@ public class Bot {
         makeFakeMove(potentialBoards, startRow, startColumn, finishRow, finishColumn);
         return resultingBoardArray;
     }*/
+
+    public Board copyBoard(Board board) throws IOException {
+        Board copy = new Board(board.base, false);
+        copy.boardArray = board.boardArray;
+        copy.allPossibleLocations = board.allPossibleLocations;
+        return copy;
+    }
+
+    public int findBoardScore(Board board) {
+        int count = 0;
+        for(int i = 0; i < board.boardArray.length; i++){
+            for(int j = 0; j < board.boardArray[0].length; j++){
+                if(board.boardArray[i][j] == 'o'){
+                     count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    List<char[][]> playedBoards = new ArrayList<char[][]>();
+
+    public List<int[]> countAllMoves(Board sol) {
+        List<int[]> allMoves = new ArrayList<>();
+        int[][] temp = sol.allPossibleLocations;
+        for (int[] array : temp){
+            for (int[] array2 : temp) {
+
+                if (isValidMove(sol, array[0], array[1], array2[0], array2[1])) {
+                    int[] temporary = new int[4];
+                    temporary[0] = array[0];
+                    temporary[1] = array[1];
+                    temporary[2] = array2[0];
+                    temporary[3] = array2[1];
+                    allMoves.add(temporary);// = temporary;
+                    //sol.validMoves.add(temporary);
+                }else{
+                    System.out.println("not making it to if" + array[0] + array[1] + array2[0] + array2[1]);
+                }
+            }
+        }
+        return allMoves;
+    }
+
+    public List<int[]> recursion(Board board, List<int[]> moveList) throws IOException {
+        if(playedBoards.contains(board.boardArray)){
+            return null;
+        }
+        playedBoards.add(board.boardArray);
+        if(countAllMoves(board).isEmpty()){
+            return moveList;
+        }else{
+            for(int[] move : countAllMoves(board)){
+                List<int[]> newMoveList = new ArrayList<>(moveList);
+                newMoveList.add(move);
+                List<int[]> res = new ArrayList<int[]>();
+                if(recursion(makeFakeMove(copyBoard(board), move[0], move[1], move[2], move[3]), newMoveList) !=null){
+                    res = recursion(makeFakeMove(copyBoard(board), move[0], move[1], move[2], move[3]), newMoveList);
+                }
+                if(!(res.isEmpty())){
+                    return res;
+                }
+                else{
+                    System.out.println("I didn't do it" + moveList);
+                }
+            }
+
+        }
+        System.out.println("Tried my best");
+        return moveList;
+    }
 
     public boolean isValidMove(Board boardFake, int startRow, int startColumn, int finishRow, int finishColumn) {
         int[][] listOfPossibleLocations = boardFake.allPossibleLocations;
